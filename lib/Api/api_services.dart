@@ -26,7 +26,7 @@ class ApiServices {
 
   Future<List<ArticleModel?>> getAllNews() async {
     String url =
-        "https://newsapi.org/v2/everything?q=hot&from=2025-01-10&sortby=publishedAt&apiKey=$API_KEY";
+        "https://newsapi.org/v2/everything?q=hot&sortby=publishedAt&apiKey=$API_KEY";
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
@@ -34,6 +34,7 @@ class ApiServices {
       return articleList.map(
         (e) {
           if (e['urlToImage'] != null&&e['description']!=null&&e['title']!=null) {
+            log(e.toString());
             return ArticleModel.fromJson(e);
           }
         },
